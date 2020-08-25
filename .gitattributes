@@ -4,6 +4,9 @@
 *.cginc text
 *.shader text
 
+
+## git-lfs ##
+
 *.mat merge=unityyamlmerge filter=lfs diff=lfs
 *.anim merge=unityyamlmerge filter=lfs diff=lfs
 *.unity merge=unityyamlmerge filter=lfs diff=lfs
@@ -13,9 +16,6 @@
 *.asset merge=unityyamlmerge filter=lfs diff=lfs
 *.meta merge=unityyamlmerge filter=lfs diff=lfs
 *.controller merge=unityyamlmerge filter=lfs diff=lfs
-
-
-## git-lfs ##
 
 #Image
 *.jpg filter=lfs diff=lfs merge=lfs -text
