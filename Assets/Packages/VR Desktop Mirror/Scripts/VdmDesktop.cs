@@ -1,18 +1,14 @@
-﻿#define VDM_SteamVR
+﻿//#define VDM_SteamVR
 
 using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Xml;
-using UnityEngine.InputSystem.HID;
-using UnityEngine.XR;
+using LOLVR;
 
 public class VdmDesktop : MonoBehaviour
 {
-    public GameObject rightController;
-
     [HideInInspector]
     public int Screen = 0;
     [HideInInspector]
@@ -20,19 +16,6 @@ public class VdmDesktop : MonoBehaviour
 
     [DllImport("user32.dll")]
     static extern void mouse_event(int dwFlags, int dx, int dy, int dwData, int dwExtraInfo);
-
-    [Flags]
-    public enum MouseEventFlags
-    {
-        LEFTDOWN = 0x00000002,
-        LEFTUP = 0x00000004,
-        MIDDLEDOWN = 0x00000020,
-        MIDDLEUP = 0x00000040,
-        MOVE = 0x00000001,
-        ABSOLUTE = 0x00008000,
-        RIGHTDOWN = 0x00000008,
-        RIGHTUP = 0x00000010
-    }
 
     private VdmDesktopManager m_manager;
     private LineRenderer m_line;
@@ -75,7 +58,7 @@ public class VdmDesktop : MonoBehaviour
 
         m_manager.Connect(this);
 
-        //Hide();
+        Hide();
     }
 
     public void Update()
@@ -112,7 +95,8 @@ public class VdmDesktop : MonoBehaviour
 
             if (transform.rotation != rotationDestination)
                 transform.rotation = Quaternion.Lerp(transform.rotation, rotationDestination, step);
-            CheckController(rightController);
+
+            CheckController(VdmDesktopManager.Instance.mouseRayCast);
         }
 
     }
@@ -149,9 +133,9 @@ public class VdmDesktop : MonoBehaviour
         return (m_renderer.enabled);
     }
 
-    public void CheckKeyboardAndMouse()
+    public void CheckKeyboardAndMouse(bool showScreen = false)
     {
-        if (Input.GetKeyDown(m_manager.KeyboardShow))
+        if (Input.GetKeyDown((KeyCode)m_manager.KeyboardShow) || showScreen)
         {
             VdmDesktopManager.ActionInThisFrame = true;
 
@@ -164,11 +148,11 @@ public class VdmDesktop : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(m_manager.KeyboardShow))
+        if (Input.GetKey((KeyCode)m_manager.KeyboardShow) || showScreen)
         {
             VdmDesktopManager.ActionInThisFrame = true;
 
-            m_manager.KeyboardDistance += Input.GetAxisRaw("Mouse ScrollWheel");
+            m_manager.KeyboardDistance += Input.GetAxisRaw(VRAxis.LEFT_THUMBSTICK_VERTICAL);
             m_manager.KeyboardDistance = Mathf.Clamp(m_manager.KeyboardDistance, 0.2f, 100);
 
             m_positionNormal = Camera.main.transform.position + Camera.main.transform.rotation * new Vector3(0, 0, m_manager.KeyboardDistance);
@@ -176,7 +160,7 @@ public class VdmDesktop : MonoBehaviour
             m_rotationNormal = Camera.main.transform.rotation;
         }
 
-        if (Input.GetKeyUp(m_manager.KeyboardShow))
+        if (Input.GetKeyUp((KeyCode)m_manager.KeyboardShow) || showScreen)
         {
             VdmDesktopManager.ActionInThisFrame = true;
 
@@ -231,7 +215,7 @@ public class VdmDesktop : MonoBehaviour
     }
 
 
-    public void CheckController(GameObject controller)
+    public void CheckController(Transform controller)
     {
 #if VDM_SteamVR
         //SteamVR_Controller.Device input = null;
@@ -239,9 +223,9 @@ public class VdmDesktop : MonoBehaviour
         //    input = SteamVR_Controller.Input((int)controller.index);
 #endif
 
-        Vector3 origin = controller.transform.position;
-        Vector3 direction = controller.transform.rotation * new Vector3(0, 0, 100);
-        Quaternion rotation = controller.transform.rotation;
+        Vector3 origin = controller.position;
+        Vector3 direction = controller.rotation * new Vector3(0, 0, 100);
+        Quaternion rotation = controller.rotation;
 
         bool hitScreen = false;
 
@@ -450,15 +434,4 @@ public class VdmDesktop : MonoBehaviour
         transform.localScale = new Vector3(sx, sy, 1);
 
     }
-#if VDM_SteamVR
-    private void SetupXRDevices()
-    {
-        Debug.Log("Registering XR-devices");
-        InputDevices.GetDevicesWithCharacteristics(InputDeviceCharacteristics.HeldInHand | InputDeviceCharacteristics.Controller, controller);
-        foreach (InputDevice device in controller)
-        {
-            Debug.Log($"'{device.name}' found.");
-        }
-    }
-#endif
 }

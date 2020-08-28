@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using LOLVR;
+using LOLVR.InputStructs;
 using UnityEngine.XR;
 
 public class VdmDesktopManager : MonoBehaviour
@@ -16,9 +17,11 @@ public class VdmDesktopManager : MonoBehaviour
     public static bool ActionInThisFrame = false;
 
     [Tooltip("Keyboard key to show/drag/hide")]
-    public KeyCode KeyboardShow = KeyCode.LeftControl;
+    public VRKeyCodes KeyboardShow = VRKeyCodes.LEFT_AXIS_CLICK;
     [Tooltip("Keyboard key to zoom")]
     public KeyCode KeyboardZoom = KeyCode.LeftAlt;
+
+    public Transform mouseRayCast;
 
 #if VDM_SteamVR
 
@@ -391,7 +394,7 @@ public class VdmDesktopManager : MonoBehaviour
     {
         HackStop();
 
-        string exePath = "Assets\\VR Desktop Mirror\\Hack\\VrDesktopMirrorWorkaround.exe";
+        string exePath = "Assets\\Packages\\VR Desktop Mirror\\Hack\\VrDesktopMirrorWorkaround.exe";
         if (System.IO.File.Exists(exePath))
         {
             m_process = new System.Diagnostics.Process();
@@ -419,5 +422,8 @@ public class VdmDesktopManager : MonoBehaviour
         m_process = null;
     }
 
-
+    public void ShowMonitors()
+    {
+        Monitors?.ForEach(monitor => monitor.CheckKeyboardAndMouse(true));
+    }
 }
