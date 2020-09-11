@@ -9,11 +9,9 @@ namespace LOLVR
     public static class SendAction
     {
         [DllImport("user32.dll", SetLastError = true)]
-        static extern uint SendInput(uint nInputs, INPUT pInputs, int cbSize);
+        private static extern uint SendInput(uint nInputs, INPUT pInputs, int cbSize);
         [DllImport("user32.dll", SetLastError = true)]
-        static extern uint SendInput(uint nInputs, INPUT[] pInputs, int cbSize);
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetMessageExtraInfo();
+        private static extern uint SendInput(uint nInputs, INPUT[] pInputs, int cbSize);
 
         public static void SimulateKey(ushort key)
         {
@@ -27,9 +25,6 @@ namespace LOLVR
 
             SendInput((uint)keys.Length * 2, inputs.ToArray(), Marshal.SizeOf(new INPUT()));
         }
-
-        public static void SimulateMouseLeftClick() => SendInput(2, new[] { MouseLeftDown(), MouseLeftUp() }, Marshal.SizeOf(new INPUT()));
-        public static void SimulateMouseRightClick() => SendInput(2, new[] { MouseRightDown(), MouseRightUp() }, Marshal.SizeOf(new INPUT()));
 
         public static void SimulateMouseLeftUp() => SendInput(1, MouseLeftUp(), Marshal.SizeOf(new INPUT()));
         public static void SimulateMouseRightUp() => SendInput(1, MouseRightUp(), Marshal.SizeOf(new INPUT()));
@@ -57,24 +52,21 @@ namespace LOLVR
 
         private static INPUT MouseLeftDown()
         {
-            INPUT mouseDownInput = new INPUT();
-            mouseDownInput.type = SendInputEventType.InputMouse;
+            INPUT mouseDownInput = new INPUT { type = SendInputEventType.InputMouse };
             mouseDownInput.mkhi.mi.dwFlags = MouseEventFlags.MOUSEEVENTF_LEFTDOWN;
             return mouseDownInput;
         }
 
         private static INPUT MouseLeftUp()
         {
-            INPUT mouseUpInput = new INPUT();
-            mouseUpInput.type = SendInputEventType.InputMouse;
+            INPUT mouseUpInput = new INPUT { type = SendInputEventType.InputMouse };
             mouseUpInput.mkhi.mi.dwFlags = MouseEventFlags.MOUSEEVENTF_LEFTUP;
             return mouseUpInput;
         }
 
         private static INPUT MouseRightDown()
         {
-            INPUT mouseDownInput = new INPUT();
-            mouseDownInput.type = SendInputEventType.InputMouse;
+            INPUT mouseDownInput = new INPUT { type = SendInputEventType.InputMouse };
             mouseDownInput.mkhi.mi.dwFlags = MouseEventFlags.MOUSEEVENTF_RIGHTDOWN;
             return mouseDownInput;
 
@@ -82,8 +74,7 @@ namespace LOLVR
 
         private static INPUT MouseRightUp()
         {
-            INPUT mouseUpInput = new INPUT();
-            mouseUpInput.type = SendInputEventType.InputMouse;
+            INPUT mouseUpInput = new INPUT { type = SendInputEventType.InputMouse };
             mouseUpInput.mkhi.mi.dwFlags = MouseEventFlags.MOUSEEVENTF_RIGHTUP;
             return mouseUpInput;
         }

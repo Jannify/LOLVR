@@ -421,9 +421,4 @@ public class VdmDesktopManager : MonoBehaviour
         }
         m_process = null;
     }
-
-    public void ShowMonitors()
-    {
-        Monitors?.ForEach(monitor => monitor.CheckKeyboardAndMouse(true));
-    }
 }
