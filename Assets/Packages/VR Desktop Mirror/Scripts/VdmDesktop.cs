@@ -52,7 +52,7 @@ public class VdmDesktop : MonoBehaviour
         SetupXRDevices();
 #endif
         m_manager = transform.parent.GetComponent<VdmDesktopManager>();
-        m_line = GetComponent<LineRenderer>();
+        m_line = transform.GetChild(0).GetComponent<LineRenderer>();
         m_renderer = GetComponent<Renderer>();
         m_collider = GetComponent<MeshCollider>();
 
@@ -133,9 +133,9 @@ public class VdmDesktop : MonoBehaviour
         return (m_renderer.enabled);
     }
 
-    public void CheckKeyboardAndMouse(bool showScreen = false)
+    public void CheckKeyboardAndMouse()
     {
-        if (Input.GetKeyDown((KeyCode)m_manager.KeyboardShow) || showScreen)
+        if (Input.GetKeyDown((KeyCode)m_manager.KeyboardShow))
         {
             VdmDesktopManager.ActionInThisFrame = true;
 
@@ -148,11 +148,11 @@ public class VdmDesktop : MonoBehaviour
             }
         }
 
-        if (Input.GetKey((KeyCode)m_manager.KeyboardShow) || showScreen)
+        if (Input.GetKey((KeyCode)m_manager.KeyboardShow))
         {
             VdmDesktopManager.ActionInThisFrame = true;
 
-            m_manager.KeyboardDistance += Input.GetAxisRaw(VRAxis.LEFT_THUMBSTICK_VERTICAL);
+            m_manager.KeyboardDistance += Input.GetAxis("XRI_Left_Primary2DAxis_Vertical") / 2f;
             m_manager.KeyboardDistance = Mathf.Clamp(m_manager.KeyboardDistance, 0.2f, 100);
 
             m_positionNormal = Camera.main.transform.position + Camera.main.transform.rotation * new Vector3(0, 0, m_manager.KeyboardDistance);
@@ -160,7 +160,7 @@ public class VdmDesktop : MonoBehaviour
             m_rotationNormal = Camera.main.transform.rotation;
         }
 
-        if (Input.GetKeyUp((KeyCode)m_manager.KeyboardShow) || showScreen)
+        if (Input.GetKeyUp((KeyCode)m_manager.KeyboardShow))
         {
             VdmDesktopManager.ActionInThisFrame = true;
 

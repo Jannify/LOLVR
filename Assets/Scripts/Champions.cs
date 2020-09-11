@@ -1,12 +1,21 @@
 ﻿namespace LOLVR
 {
-    public enum Champions
+    public enum Champion
     {
         ANIVIA,
         BLITZCRANK,
+        BRAND,
+        EVELYNN,
         EZREAL,
         FIDDLESTICKS,
         GAREN,
-        GRAGAS
+        GRAGAS,
+        KAYN,
+        LILLIA,
+        LUX,
+        MORGANA,
+        SETT,
+        ZIGGS,
+        ZILEAN
     }
 }

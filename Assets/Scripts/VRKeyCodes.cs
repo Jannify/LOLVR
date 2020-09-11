@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Diagnostics.CodeAnalysis;
+using UnityEngine;
 
 namespace LOLVR
 {
@@ -16,15 +17,16 @@ namespace LOLVR
         MENU = KeyCode.JoystickButton6
     }
 
-    public static class VRAxis
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    public enum VRAxisCodes
     {
-        public const string LEFT_TRIGGER = "XRI_Left_Trigger";
-        public  const string RIGHT_TRIGGER = "XRI_Left_Trigger";
-        public  const string LEFT_GRIP = "XRI_Left_Grip";
-        public  const string RIGHT_GRIP = "XRI_Left_Grip";
-        public  const string LEFT_THUMBSTICK_VERTICAL = "XRI_Left_Primary2DAxis_Vertical";
-        public  const string LEFT_THUMBSTICK_HORIZONTAL = "XRI_Left_Primary2DAxis_Horizontal";
-        public  const string RIGHT_THUMBSTICK_VERTICAL = "XRI_Right_Primary2DAxis_Vertical";
-        public  const string RIGHT_THUMBSTICK_HORIZONTAL = "XRI_Right_Primary2DAxis_Horizontal";
+        XRI_Left_Trigger,
+        XRI_Right_Trigger,
+        XRI_Left_Grip,
+        XRI_Right_Grip,
+        XRI_Left_Primary2DAxis_Vertical,
+        XRI_Left_Primary2DAxis_Horizontal,
+        XRI_Right_Primary2DAxis_Vertical,
+        XRI_Right_Primary2DAxis_Horizontal
     }
 }

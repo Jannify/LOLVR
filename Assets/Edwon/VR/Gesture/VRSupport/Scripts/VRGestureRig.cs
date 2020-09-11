@@ -337,10 +337,7 @@ namespace Edwon.VR
 
             if (GestureSettings.showVRUI)
             {
-                VRLaserPointer laserLeft = handLeft.gameObject.AddComponent<VRLaserPointer>();
-                laserLeft.InitRig(this, Handedness.Left);
-                VRLaserPointer laserRight = handRight.gameObject.AddComponent<VRLaserPointer>();
-                laserRight.InitRig(this, Handedness.Right);
+                CreateVRLaserPointer();
             }
 
             if (spawnControllerModels)
@@ -352,6 +349,12 @@ namespace Edwon.VR
         public void CreateVRUI()
         {
             Instantiate(Resources.Load(Config.PARENT_PATH + "VRUI/VR Gesture UI"));
+        }
+
+        public void CreateVRLaserPointer()
+        {
+            handLeft.gameObject.AddComponent<VRLaserPointer>().InitRig(this, Handedness.Left);
+            handRight.gameObject.AddComponent<VRLaserPointer>().InitRig(this, Handedness.Right);
         }
 
         public void SpawnControllerModels()

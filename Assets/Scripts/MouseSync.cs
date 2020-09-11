@@ -4,15 +4,12 @@ namespace LOLVR
 {
     public class MouseSync : MonoBehaviour
     {
-        [SerializeField] private VRKeyCodes leftClick;
-        [SerializeField] private VRKeyCodes rightClick;
-
         private void Update()
         {
-            if (Input.GetKeyDown((KeyCode)leftClick)) SendAction.SimulateMouseLeftDown();
-            if (Input.GetKeyDown((KeyCode)rightClick)) SendAction.SimulateMouseRightDown();
-            if (Input.GetKeyUp((KeyCode)leftClick)) SendAction.SimulateMouseLeftUp();
-            if (Input.GetKeyDown((KeyCode)rightClick)) SendAction.SimulateMouseRightUp();
+            if (Input.GetKeyDown((KeyCode)ConfigManager.LeftClick)) SendAction.SimulateMouseLeftDown();
+            else if (Input.GetKeyDown((KeyCode)ConfigManager.RightClick)) SendAction.SimulateMouseRightDown();
+            if (Input.GetKeyUp((KeyCode)ConfigManager.LeftClick)) SendAction.SimulateMouseLeftUp();
+            else if (Input.GetKeyUp((KeyCode)ConfigManager.RightClick)) SendAction.SimulateMouseRightUp();
         }
     }
 }

@@ -23,20 +23,21 @@ namespace Edwon.VR
         // called by the VRGestureRig when created
         public void InitRig(VRGestureRig _rig, Handedness _handType)
         {
+            enabled = true;
             rig = _rig;
             handType = _handType;
             input = rig.GetInput(handType);
             selectButton = rig.menuButton;
         }
 
-        new void Update ()
+        new void Update()
         {
             base.Update();
         }
 
         public override bool ButtonDown()
         {
-            if(input != null)
+            if (input != null)
             {
                 bool buttonDown = input.GetButtonDown(selectButton);
                 return buttonDown;
@@ -55,7 +56,7 @@ namespace Edwon.VR
 
             return false;
         }
-        
+
         // BUZZ HAPTICS ON ENTER
         public override void OnEnterControl(GameObject control)
         {
