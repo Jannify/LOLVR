@@ -839,9 +839,11 @@ public class OVRLint : EditorWindow
 			AudioImporter importer = AssetImporter.GetAtPath(assetPath) as AudioImporter;
 			if (importer != null)
 			{
-				if (preload != importer.preloadAudioData)
+				AudioImporterSampleSettings sampleSettings = importer.defaultSampleSettings;
+				if (preload != sampleSettings.preloadAudioData)
 				{
-					importer.preloadAudioData = preload;
+					sampleSettings.preloadAudioData = preload;
+					importer.defaultSampleSettings = sampleSettings;
 
 					AssetDatabase.ImportAsset(assetPath);
 					if (refreshImmediately)
