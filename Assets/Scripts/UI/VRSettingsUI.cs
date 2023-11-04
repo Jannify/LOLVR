@@ -10,6 +10,7 @@ namespace LOLVR.UI
 {
     public class VRSettingsUI : MonoBehaviour
     {
+        [SerializeField] private LaserPointerInputModule laserPointerInputModule;
         [SerializeField] private TMP_Dropdown leftClickDropdown, rightClickDropdown, championDropdown, mainHandDropdown;
         [SerializeField] private Slider monitorSizeSlider;
         [SerializeField] private Transform uiPanel;
@@ -68,6 +69,7 @@ namespace LOLVR.UI
             {
                 showUI = !showUI;
                 Utils.ToggleCanvasGroup(uiPanelCanvasCanvasGroup, showUI);
+                laserPointerInputModule.enabled = !laserPointerInputModule.enabled;
             }
         }
     }

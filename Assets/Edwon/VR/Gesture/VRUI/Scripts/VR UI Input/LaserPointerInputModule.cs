@@ -11,9 +11,10 @@ namespace Edwon.VR
 
         public static LaserPointerInputModule instance { get { return Instance; } }
         private static LaserPointerInputModule Instance = null;
-                
+
         // storage class for controller specific data
-        public class ControllerData {
+        public class ControllerData
+        {
             public PointerEventData pointerEvent;
             public GameObject currentPoint;
             public GameObject currentPressed;
@@ -24,8 +25,7 @@ namespace Edwon.VR
         public Camera _UICamera;
         public Camera UICamera
         {
-            get
-            {
+            get {
                 if (_UICamera == null)
                 {
                     // Create a new camera that will be used for raycasts
@@ -45,13 +45,11 @@ namespace Edwon.VR
         [HideInInspector]
         public HashSet<ILaserPointer> _Controllers
         {
-            set
-            {
+            set {
                 _Controllers = value;
             }
-            get
-            {
-                return _controllers; 
+            get {
+                return _controllers;
             }
         }
 
@@ -74,7 +72,7 @@ namespace Edwon.VR
         protected override void Start()
         {
             base.Start();
-            
+
             //// Find canvases in the scene and assign our custom
             //// UICamera to them
             Canvas canvas = GetComponent<Canvas>();
@@ -100,7 +98,7 @@ namespace Edwon.VR
         // get if the ILaserPointer (controller) pressing on some GameObject
         public ILaserPointer IsLaserPointerPressingAt(GameObject go)
         {
-            for (int i = _controllerData.Count-1; i > 0; i--)
+            for (int i = _controllerData.Count - 1; i > 0; i--)
             {
                 ILaserPointer laserPointer = _controllerData.ElementAt(i).Key;
                 ControllerData data = _controllerData.ElementAt(i).Value;
@@ -115,7 +113,7 @@ namespace Edwon.VR
         // get if the ILaserPointer (controller) pointing at some GameObject
         public ILaserPointer IsLaserPointerPointingAt(GameObject go)
         {
-            for (int i = _controllerData.Count-1; i > 0; i--)
+            for (int i = _controllerData.Count - 1; i > 0; i--)
             {
                 ILaserPointer laserPointer = _controllerData.ElementAt(i).Key;
                 ControllerData data = _controllerData.ElementAt(i).Value;
@@ -130,12 +128,12 @@ namespace Edwon.VR
         // get if the ILaserPointer (controller) pointing at a child of some transform
         public ILaserPointer IsLaserPointerPointingAtChildOF(Transform parent)
         {
-            for (int i = _controllerData.Count-1; i > 0; i--)
+            for (int i = _controllerData.Count - 1; i > 0; i--)
             {
                 ILaserPointer laserPointer = _controllerData.ElementAt(i).Key;
                 ControllerData data = _controllerData.ElementAt(i).Value;
                 List<GameObject> currentPointing = data.pointerEvent.hovered;
-                foreach(GameObject go in currentPointing)
+                foreach (GameObject go in currentPointing)
                 {
                     if (go.transform.IsChildOf(parent))
                     {
@@ -155,7 +153,8 @@ namespace Edwon.VR
         // clear the current selection
         public void ClearSelection()
         {
-            if(base.eventSystem.currentSelectedGameObject) {
+            if (base.eventSystem.currentSelectedGameObject)
+            {
                 base.eventSystem.SetSelectedGameObject(null);
             }
         }
@@ -165,14 +164,15 @@ namespace Edwon.VR
         {
             ClearSelection();
 
-            if(ExecuteEvents.GetEventHandler<ISelectHandler>(go)) {
+            if (ExecuteEvents.GetEventHandler<ISelectHandler>(go))
+            {
                 base.eventSystem.SetSelectedGameObject(go);
             }
         }
 
         public override void Process()
         {
-            for (int i = _controllerData.Count-1; i >= 0; i--)
+            for (int i = _controllerData.Count - 1; i >= 0; i--)
             {
                 ILaserPointer controller = _controllerData.ElementAt(i).Key;
                 ControllerData data = _controllerData.ElementAt(i).Value;
@@ -180,7 +180,7 @@ namespace Edwon.VR
                 // Test if UICamera is looking at a GUI element
                 UpdateCameraPosition(controller);
 
-                if(data.pointerEvent == null)
+                if (data.pointerEvent == null)
                     data.pointerEvent = new PointerEventData(eventSystem);
                 else
                     data.pointerEvent.Reset();
@@ -196,7 +196,7 @@ namespace Edwon.VR
 
                 // make sure our controller knows about the raycast result
                 // we add 0.0001 because that is the near plane distance of our camera and we want the correct distance
-                if(data.pointerEvent.pointerCurrentRaycast.distance > 0.0f)
+                if (data.pointerEvent.pointerCurrentRaycast.distance > 0.0f)
                     controller.LimitLaserDistance(data.pointerEvent.pointerCurrentRaycast.distance + .001f);
 
                 // stop if no UI element was hit
@@ -206,12 +206,12 @@ namespace Edwon.VR
                 // Send control enter and exit events to our controller
                 var hitControl = data.pointerEvent.pointerCurrentRaycast.gameObject;
 
-                if(data.currentPoint != hitControl)
+                if (data.currentPoint != hitControl)
                 {
-                    if(data.currentPoint != null)
+                    if (data.currentPoint != null)
                         controller.OnExitControl(data.currentPoint);
 
-                    if(hitControl != null)
+                    if (hitControl != null)
                         controller.OnEnterControl(hitControl);
                 }
 
@@ -224,7 +224,7 @@ namespace Edwon.VR
                 base.HandlePointerExitAndEnter(data.pointerEvent, data.currentPoint);
 
                 // button down begin
-                if ( controller.ButtonDown() )
+                if (controller.ButtonDown())
                 {
 
                     ClearSelection();
@@ -234,18 +234,22 @@ namespace Edwon.VR
                     data.pointerEvent.pointerPress = null;
 
                     // update current pressed if the curser is over an element
-                    if(data.currentPoint != null) {
+                    if (data.currentPoint != null)
+                    {
                         data.currentPressed = data.currentPoint;
 
                         GameObject newPressed = ExecuteEvents.ExecuteHierarchy(data.currentPressed, data.pointerEvent, ExecuteEvents.pointerDownHandler);
-                        if(newPressed == null) {
+                        if (newPressed == null)
+                        {
                             // some UI elements might only have click handler and not pointer down handler
                             newPressed = ExecuteEvents.ExecuteHierarchy(data.currentPressed, data.pointerEvent, ExecuteEvents.pointerClickHandler);
-                            if(newPressed != null) {
+                            if (newPressed != null)
+                            {
                                 data.currentPressed = newPressed;
                             }
                         }
-                        else {
+                        else
+                        {
                             data.currentPressed = newPressed;
                             // we want to do click on button down at same time, unlike regular mouse processing
                             // which does click when mouse goes up over same object it went down on
@@ -253,7 +257,8 @@ namespace Edwon.VR
                             ExecuteEvents.Execute(newPressed, data.pointerEvent, ExecuteEvents.pointerClickHandler);
                         }
 
-                        if(newPressed != null) {
+                        if (newPressed != null)
+                        {
                             data.pointerEvent.pointerPress = newPressed;
                             data.currentPressed = newPressed;
                             Select(data.currentPressed);
@@ -267,17 +272,20 @@ namespace Edwon.VR
                 // button down end
 
                 // button up begin
-                if( controller.ButtonUp() )
+                if (controller.ButtonUp())
                 {
-                    if(data.currentDragging != null) {
+                    if (data.currentDragging != null)
+                    {
                         ExecuteEvents.Execute(data.currentDragging, data.pointerEvent, ExecuteEvents.endDragHandler);
-                        if(data.currentPoint != null) {
+                        if (data.currentPoint != null)
+                        {
                             ExecuteEvents.ExecuteHierarchy(data.currentPoint, data.pointerEvent, ExecuteEvents.dropHandler);
                         }
                         data.pointerEvent.pointerDrag = null;
                         data.currentDragging = null;
                     }
-                    if(data.currentPressed) {
+                    if (data.currentPressed)
+                    {
                         ExecuteEvents.Execute(data.currentPressed, data.pointerEvent, ExecuteEvents.pointerUpHandler);
                         data.pointerEvent.rawPointerPress = null;
                         data.pointerEvent.pointerPress = null;
@@ -287,7 +295,8 @@ namespace Edwon.VR
                 // button up end
 
                 // drag handling
-                if(data.currentDragging != null) {
+                if (data.currentDragging != null)
+                {
                     ExecuteEvents.Execute(data.currentDragging, data.pointerEvent, ExecuteEvents.dragHandler);
                 }
             }
@@ -295,7 +304,7 @@ namespace Edwon.VR
 
         protected override void OnDisable()
         {
-            //Instance = null;
+            Instance = null;
             base.OnDisable();
 
         }

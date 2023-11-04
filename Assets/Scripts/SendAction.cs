@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using LOLVR.InputStructs;
+using System;
 using System.Runtime.InteropServices;
-using LOLVR.InputStructs;
+using System.Threading;
 
 namespace LOLVR
 {
@@ -10,20 +9,15 @@ namespace LOLVR
     {
         [DllImport("user32.dll", SetLastError = true)]
         private static extern uint SendInput(uint nInputs, INPUT pInputs, int cbSize);
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern uint SendInput(uint nInputs, INPUT[] pInputs, int cbSize);
 
-        public static void SimulateKey(ushort key)
+        private static readonly Random random = new Random();
+        private const int MIN_RANDOM = 9, MAX_RANDOM = 23;
+
+        public static void SimulateKey(KeyboardKeyCodes key)
         {
             SendInput(1, KeyboardDown(key), Marshal.SizeOf(new INPUT()));
+            Thread.Sleep(random.Next(MIN_RANDOM, MAX_RANDOM));
             SendInput(1, KeyboardUp(key), Marshal.SizeOf(new INPUT()));
-        }
-        public static void SimulateKeys(ushort[] keys)
-        {
-            List<INPUT> inputs = keys.Select(KeyboardDown).ToList();
-            inputs.AddRange(keys.Select(KeyboardUp));
-
-            SendInput((uint)keys.Length * 2, inputs.ToArray(), Marshal.SizeOf(new INPUT()));
         }
 
         public static void SimulateMouseLeftUp() => SendInput(1, MouseLeftUp(), Marshal.SizeOf(new INPUT()));
@@ -31,20 +25,20 @@ namespace LOLVR
         public static void SimulateMouseLeftDown() => SendInput(1, MouseLeftDown(), Marshal.SizeOf(new INPUT()));
         public static void SimulateMouseRightDown() => SendInput(1, MouseRightDown(), Marshal.SizeOf(new INPUT()));
 
-        private static INPUT KeyboardDown(ushort key)
+        private static INPUT KeyboardDown(KeyboardKeyCodes key)
         {
             INPUT input = new INPUT { type = SendInputEventType.InputKeyboard };
-            input.mkhi.ki.wScan = key;
-            input.mkhi.ki.dwFlags = KeyboardEventFlags.KeyDown | KeyboardEventFlags.Scancode;
+            input.mkhi.ki.wScan = (ushort) key;
+            input.mkhi.ki.dwFlags = KeyboardEventFlags.KeyDown| KeyboardEventFlags.Scancode;
             input.mkhi.ki.dwExtraInfo = IntPtr.Zero;
             return input;
         }
 
 
-        private static INPUT KeyboardUp(ushort key)
+        private static INPUT KeyboardUp(KeyboardKeyCodes key)
         {
             INPUT input = new INPUT { type = SendInputEventType.InputKeyboard };
-            input.mkhi.ki.wScan = key;
+            input.mkhi.ki.wScan = (ushort) key;
             input.mkhi.ki.dwFlags = KeyboardEventFlags.KeyUp | KeyboardEventFlags.Scancode;
             input.mkhi.ki.dwExtraInfo = IntPtr.Zero;
             return input;

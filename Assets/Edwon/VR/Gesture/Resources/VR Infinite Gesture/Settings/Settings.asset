@@ -1,3 +1,78 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:fda1419d291174f0548be143ec4f1da85bfcf370e6b8aaf819d0ae56a4c8f69b
-size 1428
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4fc1825353372948a7b78d71a0c6848, type: 3}
+  m_Name: Settings
+  m_EditorClassIdentifier: 
+  playerID: 0
+  vrType: 1
+  showVRUI: 0
+  gestureButton: 5
+  confidenceThreshold: 0.9399999976158142
+  gestureSyncDelay: 500
+  minimumGestureAxisLength: 0.1
+  beginInDetectMode: 0
+  vrGestureDetectType: 0
+  currentNeuralNet: BRAND
+  lastNeuralNet: THRESH
+  neuralNets:
+  - ANIVIA
+  - BLITZCRANK
+  - BRAND
+  - EVELYNN
+  - EZREAL
+  - FIDDLESTICKS
+  - GAREN
+  - GRAGAS
+  - KAYN
+  - LILLIA
+  - LUX
+  - MORGANA
+  - SETT
+  - THRESH
+  - ZIGGS
+  - ZILEAN
+  gestureBank:
+  - name: Q
+    hand: 1
+    isSynchronous: 0
+    exampleCount: 18
+  - name: W
+    hand: 1
+    isSynchronous: 1
+    exampleCount: 69
+  - name: E
+    hand: 1
+    isSynchronous: 0
+    exampleCount: 60
+  - name: R
+    hand: 1
+    isSynchronous: 1
+    exampleCount: 40
+  gestureBankPreEdit:
+  - name: Q
+    hand: 1
+    isSynchronous: 0
+    exampleCount: 18
+  - name: W
+    hand: 1
+    isSynchronous: 1
+    exampleCount: 69
+  - name: E
+    hand: 1
+    isSynchronous: 0
+    exampleCount: 60
+  - name: R
+    hand: 1
+    isSynchronous: 1
+    exampleCount: 40
+  state: 0
+  stateInitial: 0

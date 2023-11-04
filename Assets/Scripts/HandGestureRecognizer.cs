@@ -1,5 +1,6 @@
 ﻿using Edwon.VR;
 using Edwon.VR.Gesture;
+using LOLVR.InputStructs;
 using UnityEngine;
 
 namespace LOLVR
@@ -26,16 +27,20 @@ namespace LOLVR
             switch (gestureName)
             {
                 case "Q":
-                    SendAction.SimulateKey(16);
+                    Debug.Log("Q");
+                    SendAction.SimulateKey(KeyboardKeyCodes.Q);
                     break;
                 case "W":
-                    SendAction.SimulateKey(17);
+                    Debug.Log("W");
+                    SendAction.SimulateKey(KeyboardKeyCodes.W);
                     break;
                 case "E":
-                    SendAction.SimulateKey(18);
+                    Debug.Log("E");
+                    SendAction.SimulateKey(KeyboardKeyCodes.E);
                     break;
                 case "R":
-                    SendAction.SimulateKey(19);
+                    Debug.Log("R");
+                    SendAction.SimulateKey(KeyboardKeyCodes.R);
                     break;
             }
         }
