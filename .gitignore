@@ -2,6 +2,10 @@
 Assets/LOLVR/Models/SummonersRift/*
 Assets/LOLVR/Models/SummonersRift.meta
 
+# Third Party Samples
+Assets/Samples/
+
+
 # Created by https://www.toptal.com/developers/gitignore/api/rider,unity,windows
 # Edit at https://www.toptal.com/developers/gitignore?templates=rider,unity,windows
 

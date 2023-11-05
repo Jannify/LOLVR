@@ -58,6 +58,7 @@ namespace LOLVR
             {
                 Debug.LogWarning($"No File at {filePath}. Generating default settings.");
                 SetStandardConfig();
+                Save();
             }
         }
 
