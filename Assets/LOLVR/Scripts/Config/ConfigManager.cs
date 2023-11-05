@@ -52,6 +52,7 @@ namespace LOLVR
                 {
                     Debug.LogError("Cannot load data from JSON text. Generating default settings.");
                     SetStandardConfig();
+                    Save();
                 }
             }
             else
@@ -64,11 +65,6 @@ namespace LOLVR
 
         public static void Save()
         {
-            if (!File.Exists(filePath))
-            {
-                File.Create(filePath);
-            }
-
             try
             {
                 string text = JsonUtility.ToJson(config);

@@ -4,6 +4,7 @@ using System;
 using Edwon.VR.Gesture;
 using Edwon.VR.Input;
 using System.Collections.Generic;
+using Unity.XR.CoreUtils;
 
 namespace Edwon.VR
 {
@@ -91,8 +92,8 @@ namespace Edwon.VR
         #region INITIALIZATION
 
         // Reset is called when the user hits the Reset button in the Inspector's context menu
-        // or when adding the component the first time. 
-        // This function is only called in editor mode. 
+        // or when adding the component the first time.
+        // This function is only called in editor mode.
         void Reset()
         {
             if (gameObject.GetComponent("Oculus.VR.OVRCameraRig") || gameObject.GetComponent("Oculus.VR.OVRManager"))
@@ -104,6 +105,11 @@ namespace Edwon.VR
             {
                 Utils.ChangeVRType(VRType.SteamVR);
                 GestureSettings.vrType = VRType.SteamVR;
+            }
+            if (gameObject.GetComponent("XROrigin"))
+            {
+                Utils.ChangeVRType(VRType.OpenXR);
+                GestureSettings.vrType = VRType.OpenXR;
             }
         }
 
@@ -272,6 +278,22 @@ namespace Edwon.VR
                         );
                 }
 #endif
+#if EDWON_VR_OPEN_XR
+                if (GetComponent<XROrigin>() != null)
+                {
+                    XROrigin xrOrigin = GetComponent<XROrigin>();
+                    head = xrOrigin.Camera.transform;
+                    Transform cameraOffset = head.parent;
+                    handLeft = cameraOffset.Find("Left Controller");
+                    handRight = cameraOffset.Find("Right Controller");
+                }
+                else
+                {
+                    Debug.Log(
+                        "Could not setup OpenXR rig, is this script on the top level of your SteamVR camera prefab?\nDid you define EDWON_VR_OPEN_XR in Project Settings > Player ?"
+                        );
+                }
+#endif
         }
 
         public Transform GetHand(Handedness handedness)
@@ -290,7 +312,7 @@ namespace Edwon.VR
         //They will not find them because Inputs are not connected to HANDS.
         //These are now part of VR GestureManager maybe.
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="handedness"></param>
         /// <returns></returns>
@@ -332,6 +354,13 @@ namespace Edwon.VR
 
             inputLeft = handLeft.gameObject.AddComponent<VRControllerInputOculus>().Init(Handedness.Left);
             inputRight = handRight.gameObject.AddComponent<VRControllerInputOculus>().Init(Handedness.Right);
+
+#endif
+
+#if EDWON_VR_OPEN_XR
+
+            inputLeft = handLeft.gameObject.AddComponent<VRControllerInputOpenXR>().Init(Handedness.Left);
+            inputRight = handRight.gameObject.AddComponent<VRControllerInputOpenXR>().Init(Handedness.Right);
 
 #endif
 
@@ -427,12 +456,3 @@ namespace Edwon.VR
 
 
 }
-
-
-
-
-
-
-
-
-

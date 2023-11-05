@@ -46,7 +46,7 @@ namespace Edwon.VR
 
             EditorGUILayout.LabelField("HINT: Float over variable names for tooltips");
 
-            #if EDWON_VR_OCULUS || EDWON_VR_STEAM
+            #if EDWON_VR_OCULUS || EDWON_VR_STEAM || EDWON_VR_OPEN_XR
             if (GUILayout.Button(new GUIContent("Auto Setup",
                 "Press Auto Setup to automatically fill in the needed variables from the camera rig")))
             {
@@ -60,13 +60,13 @@ namespace Edwon.VR
                 "the left hand transform on the VR camera rig"));
             EditorGUILayout.PropertyField(handRight, new GUIContent("Hand Right",
                 "the right hand transform on the VR camera rig"));
-            EditorGUILayout.PropertyField(mainHand, new GUIContent("Main Hand", 
+            EditorGUILayout.PropertyField(mainHand, new GUIContent("Main Hand",
                 "hand to record (single handed) gestures with, the VR UI will show up on the opposite hand of this one" ));
-            EditorGUILayout.PropertyField(gestureButton, new GUIContent("Gesture Button", 
+            EditorGUILayout.PropertyField(gestureButton, new GUIContent("Gesture Button",
                 "button to record/capture gestures with, see documentation for button mappings on Oculus vs. Vive"));
             EditorGUILayout.PropertyField(menuButton, new GUIContent("Menu Button",
                 "button to use for clicking on the VRUI menu, see documentation for button mappings on Oculus vs. Vive"));
-            //EditorGUILayout.PropertyField(playerID, new GUIContent("Player ID", 
+            //EditorGUILayout.PropertyField(playerID, new GUIContent("Player ID",
             //    "Used for multiplayer support, coming soon, for now this should always be zero"));
 
             EditorGUILayout.PropertyField(displayGestureTrail, new GUIContent("Display Gesture Trail",

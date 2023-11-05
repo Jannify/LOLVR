@@ -4,14 +4,14 @@ using UnityEngine;
 namespace Edwon.VR
 {
     public enum Handedness { Left, Right };
-    public enum VRType { SteamVR, OculusVR };
+    public enum VRType { SteamVR, OculusVR, OpenXR };
 }
 
 namespace Edwon.VR.Gesture
 {
     public static class Config
     {
-        public const string RESOURCES_PATH = @"Assets/Edwon/VR/Gesture/Resources/VR Infinite Gesture/";
+        public const string RESOURCES_PATH = @"Assets/Packages/Edwon/VR/Gesture/Resources/VR Infinite Gesture/";
         public const string PARENT_PATH = @"VR Infinite Gesture/";
         public const string NEURAL_NET_PATH = @"/VR Infinite Gesture/Neural Networks/"; // should be within StreamingAssets folder
         public const string SETTINGS_FILE_PATH = RESOURCES_PATH + @"Settings/Settings.asset";

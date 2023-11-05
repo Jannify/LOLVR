@@ -517,6 +517,10 @@ namespace Edwon.VR.Gesture
                             {
                                 definesList[i] = "EDWON_VR_STEAM";
                             }
+                            else if (vrType == VRType.OpenXR)
+                            {
+                                definesList[i] = "EDWON_VR_OPEN_XR";
+                            }
                         }
                         break;
                     case "EDWON_VR_STEAM":
@@ -525,7 +529,23 @@ namespace Edwon.VR.Gesture
                             {
                                 definesList[i] = "EDWON_VR_OCULUS";
                             }
+                            else if (vrType == VRType.OpenXR)
+                            {
+                                definesList[i] = "EDWON_VR_OPEN_XR";
+                            }
                         }
+                        break;
+                    case "EDWON_VR_OPEN_XR":
+                    {
+                        if (vrType == VRType.SteamVR)
+                        {
+                            definesList[i] = "EDWON_VR_STEAM";
+                        }
+                        else if (vrType == VRType.OculusVR)
+                        {
+                            definesList[i] = "EDWON_VR_OCULUS";
+                        }
+                    }
                         break;
                 }
             }
@@ -543,6 +563,12 @@ namespace Edwon.VR.Gesture
                         if (!definesList.Contains("EDWON_VR_OCULUS"))
                             definesList.Add("EDWON_VR_OCULUS");
                     }
+                    break;
+                case VRType.OpenXR:
+                {
+                    if (!definesList.Contains("EDWON_VR_OPEN_XR"))
+                        definesList.Add("EDWON_VR_OPEN_XR");
+                }
                     break;
             }
 
@@ -669,5 +695,3 @@ namespace Edwon.VR.Gesture
         //minimumGestureLength
     }
 }
-
-

@@ -23,10 +23,10 @@ namespace LOLVR.UI
 
         private void LoadSettings()
         {
-            leftClickDropdown.value = leftClickDropdown.options.IndexOf(leftClickDropdown.options.First(option => option.text == ConfigManager.LeftClick.ToString()));
-            rightClickDropdown.value = rightClickDropdown.options.IndexOf(rightClickDropdown.options.First(option => option.text == ConfigManager.RightClick.ToString()));
-            mainHandDropdown.value = mainHandDropdown.options.IndexOf(mainHandDropdown.options.First(option => option.text == ConfigManager.MainHand.ToString()));
-            championDropdown.value = championDropdown.options.IndexOf(championDropdown.options.First(option => option.text == ConfigManager.Champion));
+            leftClickDropdown.value = leftClickDropdown.options.IndexOf(leftClickDropdown.options.FirstOrDefault(option => option.text == ConfigManager.LeftClick.ToString()));
+            rightClickDropdown.value = rightClickDropdown.options.IndexOf(rightClickDropdown.options.FirstOrDefault(option => option.text == ConfigManager.RightClick.ToString()));
+            mainHandDropdown.value = mainHandDropdown.options.IndexOf(mainHandDropdown.options.FirstOrDefault(option => option.text == ConfigManager.MainHand.ToString()));
+            championDropdown.value = championDropdown.options.IndexOf(championDropdown.options.FirstOrDefault(option => option.text == ConfigManager.Champion));
             monitorSizeSlider.value = ConfigManager.MonitorSize;
         }
 
