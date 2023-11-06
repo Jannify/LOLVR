@@ -8,7 +8,8 @@ namespace Edwon.VR
 
     public class LaserPointerInputModule : BaseInputModule
     {
-
+        [SerializeField]
+        private Canvas canvas;
         public static LaserPointerInputModule instance { get { return Instance; } }
         private static LaserPointerInputModule Instance = null;
 
@@ -75,15 +76,13 @@ namespace Edwon.VR
 
             //// Find canvases in the scene and assign our custom
             //// UICamera to them
-            Canvas canvas = GetComponent<Canvas>();
+            if (canvas == null)
+            {
+                canvas = GetComponent<Canvas>();
+            }
             canvas.worldCamera = UICamera;
 
         }
-
-        // public void OnLevelWasLoaded()
-        // {
-        //     Start();
-        // }
 
         public void AddController(ILaserPointer controller)
         {

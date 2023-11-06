@@ -42,11 +42,6 @@ namespace Edwon.VR
         public Transform handRight;
 
         [SerializeField]
-        GameObject leftController;
-        [SerializeField]
-        GameObject rightController;
-
-        [SerializeField]
         public bool spawnControllerModels = true;
         [SerializeField]
         public bool useCustomControllerModels = false;
@@ -451,6 +446,9 @@ namespace Edwon.VR
             currentRecognizer = new GestureRecognizer(neuralNet);
 
         }
+
+        public string GetNeuralNetName() => currentRecognizer.NeuralNetworkName;
+
         #endregion
     }
 

@@ -17,10 +17,25 @@ namespace LOLVR
             gestureRig.BeginDetect(ConfigManager.Champion);
         }
 
-        private void OnEnable() => GestureRecognizer.GestureDetectedEvent += OnGestureDetected;
-        private void OnDisable() => GestureRecognizer.GestureDetectedEvent -= OnGestureDetected;
+        private void OnEnable()
+        {
+            GestureRecognizer.GestureDetectedEvent += OnGestureDetected;
+            ConfigManager.OnConfigChanged += OnConfigChanged;
+        }
 
-        public static void ReloadNeuralNet() => instance.gestureRig.SwitchNeuralNet(ConfigManager.Champion);
+        private void OnDisable()
+        {
+            GestureRecognizer.GestureDetectedEvent -= OnGestureDetected;
+            ConfigManager.OnConfigChanged -= OnConfigChanged;
+        }
+
+        private static void OnConfigChanged()
+        {
+            if (instance.gestureRig.GetNeuralNetName() != ConfigManager.Champion)
+            {
+                instance.gestureRig.SwitchNeuralNet(ConfigManager.Champion);
+            }
+        }
 
         private static void OnGestureDetected(string gestureName, double confidence, Handedness hand, bool isDouble)
         {

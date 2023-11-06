@@ -21,8 +21,8 @@ MonoBehaviour:
   minimumGestureAxisLength: 0.1
   beginInDetectMode: 0
   vrGestureDetectType: 0
-  currentNeuralNet: BRAND
-  lastNeuralNet: THRESH
+  currentNeuralNet: EZREAL
+  lastNeuralNet: BRAND
   neuralNets:
   - ANIVIA
   - BLITZCRANK
@@ -44,35 +44,35 @@ MonoBehaviour:
   - name: Q
     hand: 1
     isSynchronous: 0
-    exampleCount: 18
+    exampleCount: 26
   - name: W
     hand: 1
-    isSynchronous: 1
-    exampleCount: 69
+    isSynchronous: 0
+    exampleCount: 30
   - name: E
     hand: 1
-    isSynchronous: 0
+    isSynchronous: 1
     exampleCount: 60
   - name: R
     hand: 1
     isSynchronous: 1
-    exampleCount: 40
+    exampleCount: 80
   gestureBankPreEdit:
   - name: Q
     hand: 1
     isSynchronous: 0
-    exampleCount: 18
+    exampleCount: 26
   - name: W
     hand: 1
-    isSynchronous: 1
-    exampleCount: 69
+    isSynchronous: 0
+    exampleCount: 30
   - name: E
     hand: 1
-    isSynchronous: 0
+    isSynchronous: 1
     exampleCount: 60
   - name: R
     hand: 1
     isSynchronous: 1
-    exampleCount: 40
+    exampleCount: 80
   state: 0
   stateInitial: 0

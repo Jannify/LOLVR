@@ -9,6 +9,9 @@ namespace LOLVR
         private static ConfigValues config;
         private static string filePath;
 
+        public delegate void ConfigChangedHandler();
+        public static event ConfigChangedHandler OnConfigChanged;
+
         public static VRKeyCodes LeftClick
         {
             set => config.leftClick = value;
@@ -68,6 +71,17 @@ namespace LOLVR
             try
             {
                 string text = JsonUtility.ToJson(config);
+
+                if (OnConfigChanged != null && File.Exists(filePath))
+                {
+                    string oldText = File.ReadAllText(filePath);
+                    if(text != oldText)
+                    {
+                        OnConfigChanged();
+                        Debug.Log("Updated config with new settings");
+                    }
+                }
+
                 File.WriteAllText(filePath, text);
             }
             catch
@@ -86,6 +100,8 @@ namespace LOLVR
                 champion = LOLVR.Champion.ANIVIA.ToString(),
                 monitorSize = 2f
             };
+
+            OnConfigChanged?.Invoke();
         }
 
         private static string GetPath(string filename) => Path.Combine(Application.persistentDataPath, "data", filename);

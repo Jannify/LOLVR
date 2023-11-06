@@ -8,20 +8,17 @@ using UnityEngine.UI;
 
 namespace LOLVR.UI
 {
-    public class VRSettingsUI : MonoBehaviour
+    public class SettingsUILoader : MonoBehaviour
     {
-        [SerializeField] private LaserPointerInputModule laserPointerInputModule;
         [SerializeField] private TMP_Dropdown leftClickDropdown, rightClickDropdown, championDropdown, mainHandDropdown;
         [SerializeField] private Slider monitorSizeSlider;
-        [SerializeField] private Transform uiPanel;
-        [SerializeField] private VRGestureRig rig;
 
-        private bool showUI;
-        private Transform vrMenuHand, vrCam;
-        private CanvasGroup uiPanelCanvasCanvasGroup;
-        private const float OFFSET_Z = 0.2f;
+        private void Start()
+        {
+            LoadSettings();
+        }
 
-        private void LoadSettings()
+        public void LoadSettings()
         {
             leftClickDropdown.value = leftClickDropdown.options.IndexOf(leftClickDropdown.options.FirstOrDefault(option => option.text == ConfigManager.LeftClick.ToString()));
             rightClickDropdown.value = rightClickDropdown.options.IndexOf(rightClickDropdown.options.FirstOrDefault(option => option.text == ConfigManager.RightClick.ToString()));
@@ -43,34 +40,6 @@ namespace LOLVR.UI
             ConfigManager.Champion = championDropdown.options[championDropdown.value].text;
 
             ConfigManager.Save();
-            HandGestureRecognizer.ReloadNeuralNet();
-        }
-
-        private void Start()
-        {
-            LoadSettings();
-            rig.CreateVRLaserPointer();
-            vrMenuHand = rig.GetHand(rig.mainHand == Handedness.Left ? Handedness.Right : Handedness.Left); //opposite hand
-            vrCam = rig.head;
-            uiPanelCanvasCanvasGroup = uiPanel.GetComponent<CanvasGroup>();
-            Utils.ToggleCanvasGroup(uiPanelCanvasCanvasGroup, showUI);
-        }
-
-        private void Update()
-        {
-            if (showUI)
-            {
-                Vector3 handToCamVector = vrCam.position - vrMenuHand.position;
-                uiPanel.position = vrMenuHand.position + (OFFSET_Z * handToCamVector);
-                if (-handToCamVector != Vector3.zero) uiPanel.rotation = Quaternion.LookRotation(-handToCamVector, Vector3.up);
-            }
-
-            if (Input.GetKeyDown((KeyCode)VRKeyCodes.MENU))
-            {
-                showUI = !showUI;
-                Utils.ToggleCanvasGroup(uiPanelCanvasCanvasGroup, showUI);
-                laserPointerInputModule.enabled = !laserPointerInputModule.enabled;
-            }
         }
     }
 }

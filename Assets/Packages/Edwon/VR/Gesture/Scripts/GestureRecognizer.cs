@@ -13,6 +13,7 @@ namespace Edwon.VR.Gesture
         public static event GestureRejected GestureRejectedEvent;
 
         public VRGestureSettings gestureSettings;
+        public string NeuralNetworkName;
 
         string lastLeftGesture;
         double lastLeftConfidenceValue;
@@ -41,6 +42,7 @@ namespace Edwon.VR.Gesture
         //Load a SavedRecognizer from a file
         public void Load(string filename)
         {
+            NeuralNetworkName = filename;
             gestureSettings = Utils.GetGestureSettings();
             NeuralNetworkStub stub = Utils.ReadNeuralNetworkStub(filename);
             outputs = stub.gestures;
@@ -190,4 +192,3 @@ namespace Edwon.VR.Gesture
     }
 
 }
-
