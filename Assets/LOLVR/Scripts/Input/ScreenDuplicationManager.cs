@@ -1,7 +1,7 @@
-﻿using System;
+﻿using LOLVR.Config;
 using UnityEngine;
 
-namespace LOLVR
+namespace LOLVR.Input
 {
     public class ScreenDuplicationManager : MonoBehaviour
     {

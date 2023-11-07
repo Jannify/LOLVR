@@ -1,9 +1,9 @@
-﻿using LOLVR.InputStructs;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using LOLVR.Enums;
 using UnityEngine;
 using UnityEngine.XR;
 
-namespace LOLVR.Assets.Scripts
+namespace LOLVR.Input
 {
     public class InventoryClickSync : MonoBehaviour
     {

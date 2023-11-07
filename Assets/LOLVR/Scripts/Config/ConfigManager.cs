@@ -1,8 +1,9 @@
 ﻿using System.IO;
 using Edwon.VR;
+using LOLVR.Enums;
 using UnityEngine;
 
-namespace LOLVR
+namespace LOLVR.Config
 {
     public class ConfigManager : MonoBehaviour
     {
@@ -97,7 +98,7 @@ namespace LOLVR
                 leftClick = VRKeyCodes.RIGHT_SECONDARY,
                 rightClick = VRKeyCodes.RIGHT_PRIMARY,
                 mainHand = Handedness.Right,
-                champion = LOLVR.Champion.ANIVIA.ToString(),
+                champion = Enums.Champion.ANIVIA.ToString(),
                 monitorSize = 2f
             };
 

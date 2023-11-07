@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using LOLVR;
+using LOLVR.Enums;
 using LOLVR.InputStructs;
 using UnityEngine.XR;
 
@@ -129,7 +130,7 @@ public class VdmDesktopManager : MonoBehaviour
 
     private static int needReinit = 0;
 
-#if VDM_SteamVR 
+#if VDM_SteamVR
     // Don't worry!
     // If you have a compilation error about missing SteamVR_TrackedObject,
     // comment the first line of this file, the "#define VDM_SteamVR" line.
@@ -172,7 +173,7 @@ public class VdmDesktopManager : MonoBehaviour
 
         yield return new WaitForSeconds(1);
 
-#if VDM_SteamVR 
+#if VDM_SteamVR
         RefreshControllers();
 #endif
 
@@ -181,7 +182,7 @@ public class VdmDesktopManager : MonoBehaviour
 
     void OnEnable()
     {
-#if VDM_SteamVR 
+#if VDM_SteamVR
         SteamVR_Utils.Event.Listen("device_connected", OnDeviceConnected);
 #endif
 

@@ -1,9 +1,10 @@
-﻿using LOLVR.InputStructs;
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
 using System.Threading;
+using LOLVR.Enums;
+using LOLVR.InputStructs;
 
-namespace LOLVR
+namespace LOLVR.Input
 {
     public static class SendAction
     {

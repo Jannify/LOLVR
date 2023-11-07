@@ -1,9 +1,10 @@
 ﻿using Edwon.VR;
 using Edwon.VR.Gesture;
-using LOLVR.InputStructs;
+using LOLVR.Config;
+using LOLVR.Enums;
 using UnityEngine;
 
-namespace LOLVR
+namespace LOLVR.Input
 {
     public class HandGestureRecognizer : MonoBehaviour
     {

@@ -2,10 +2,11 @@
 using System.Collections;
 using System.IO;
 using System.Linq;
+using LOLVR.Enums;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace LOLVR.Assets.Scripts.UI
+namespace LOLVR.UI
 {
     public class ChampionSpriteDownloader : MonoBehaviour
     {

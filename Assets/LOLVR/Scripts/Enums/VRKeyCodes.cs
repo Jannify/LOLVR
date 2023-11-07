@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace LOLVR
+namespace LOLVR.Enums
 {
     public enum VRKeyCodes
     {

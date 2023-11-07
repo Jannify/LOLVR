@@ -2,6 +2,8 @@
 using Edwon.VR.Gesture;
 using System;
 using System.Linq;
+using LOLVR.Config;
+using LOLVR.Enums;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

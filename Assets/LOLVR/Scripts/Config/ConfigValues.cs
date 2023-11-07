@@ -1,7 +1,8 @@
 ﻿using System;
 using Edwon.VR;
+using LOLVR.Enums;
 
-namespace LOLVR
+namespace LOLVR.Config
 {
     [Serializable]
     public struct ConfigValues

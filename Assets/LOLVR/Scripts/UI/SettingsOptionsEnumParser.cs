@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Edwon.VR;
-using LOLVR.Assets.Scripts.UI;
+using LOLVR.Enums;
 using TMPro;
 using UnityEngine;
 
