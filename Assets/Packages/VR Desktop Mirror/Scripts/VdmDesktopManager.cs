@@ -335,7 +335,7 @@ public class VdmDesktopManager : MonoBehaviour
         }
     }
 
-    private void ReInit()
+    public void ReInit()
     {
         DesktopCapturePlugin_Initialize();
 

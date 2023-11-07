@@ -1,4 +1,5 @@
-﻿using LOLVR.Config;
+﻿using System;
+using LOLVR.Config;
 using UnityEngine;
 
 namespace LOLVR.Input
@@ -24,7 +25,11 @@ namespace LOLVR.Input
 
         private void OnConfigChanged()
         {
-            desktopManager.ScreenScaleFactor = ConfigManager.MonitorSize / 1000f;
+            if (Math.Abs(ConfigManager.MonitorSize - desktopManager.ScreenScaleFactor * 1000f) > 0.01f)
+            {
+                desktopManager.ScreenScaleFactor = ConfigManager.MonitorSize / 1000f;
+            }
+
         }
     }
 }

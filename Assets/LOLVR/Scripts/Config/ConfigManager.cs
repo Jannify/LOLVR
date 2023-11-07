@@ -39,6 +39,12 @@ namespace LOLVR.Config
             get => config.monitorSize;
         }
 
+        public static KeyboardKeyCodes PotionKey
+        {
+            set => config.potionKey = value;
+            get => config.potionKey;
+        }
+
         private void Awake() => Load();
 
         private static void Load()
@@ -99,7 +105,8 @@ namespace LOLVR.Config
                 rightClick = VRKeyCodes.RIGHT_PRIMARY,
                 mainHand = Handedness.Right,
                 champion = Enums.Champion.ANIVIA.ToString(),
-                monitorSize = 2f
+                monitorSize = 2f,
+                potionKey = KeyboardKeyCodes.N1
             };
 
             OnConfigChanged?.Invoke();

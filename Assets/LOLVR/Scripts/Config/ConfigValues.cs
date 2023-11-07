@@ -12,5 +12,6 @@ namespace LOLVR.Config
         public Handedness mainHand;
         public string champion;
         public float monitorSize;
+        public KeyboardKeyCodes potionKey;
     }
 }
