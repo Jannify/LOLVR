@@ -20,7 +20,7 @@ namespace LOLVR
 
             base.Update();
 
-            if ( thisTransform.position == Vector3.zero)
+            if (thisTransform.position == Vector3.zero)
             {
                 transform.SetPositionAndRotation(savedPosition, savedRotation);
             }

@@ -152,9 +152,9 @@ namespace Edwon.VR.Gesture
                 if (gesture.Contains(LeftHandSyncPrefix) || gesture.Contains(RightHandSyncPrefix))
                 {
                     //strip the gesture
-                    if (lastLeftGesture != null)
+                    if (lastLeftGesture != null && LeftHandSyncPrefix.Length <= lastLeftGesture.Length)
                         gestureA = lastLeftGesture.Substring(LeftHandSyncPrefix.Length - 1);
-                    if (lastRightGesture != null)
+                    if (lastRightGesture != null && RightHandSyncPrefix.Length <= lastRightGesture.Length)
                         gestureB = lastRightGesture.Substring(RightHandSyncPrefix.Length - 1);
                 }
             }
