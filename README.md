@@ -3,6 +3,11 @@ League of Legends in VR
 
 Current implemented champions: **Anivia**, **Blitzcrank**, **Ezreal**.
 
+### Tech Demo Videos
+[v1.0](https://www.youtube.com/watch?v=7yvZgMvwqjQ)
+
+[v1.1](https://www.youtube.com/watch?v=EQU7OSPLFDI)
+
 ## Public Assets
 
 LOLVR could not work without:
